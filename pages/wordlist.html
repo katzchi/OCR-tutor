@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCR Tutor - Word List</title>
+  <link rel="stylesheet" href="wordlist.css">
+</head>
+<body>
+  <div class="wordlist-container">
+    <div class="wordlist-header">
+      <h1>My Words</h1>
+      <div class="header-right">
+        <div class="sort-group">
+          <label for="sort-select">Sort:</label>
+          <select id="sort-select">
+            <option value="date">Date (Newest)</option>
+            <option value="alpha">Alphabetical (A-Z)</option>
+            <option value="random">Random</option>
+          </select>
+        </div>
+        <span id="word-count" class="word-count">0 words</span>
+      </div>
+    </div>
+
+    <div id="empty-state" class="empty-state" style="display:none;">
+      <div class="empty-icon">📚</div>
+      <p>No words saved yet.</p>
+      <p class="empty-hint">Press <kbd>Alt+Q</kbd> on any webpage to start capturing words!</p>
+    </div>
+
+    <div id="word-grid" class="word-grid"></div>
+  </div>
+
+  <script src="wordlist.js"></script>
+</body>
+</html>

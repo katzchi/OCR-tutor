@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f5f7fa;
+  color: #333;
+  min-height: 100vh;
+}
+
+.settings-container {
+  max-width: 560px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #1a1a1a;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.provider-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.provider-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.provider-option:hover {
+  border-color: #2563eb;
+  background: #f0f4ff;
+}
+
+.provider-option input[type="radio"] {
+  accent-color: #2563eb;
+}
+
+.provider-label {
+  font-size: 14px;
+}
+
+.api-key-group {
+  margin-bottom: 16px;
+}
+
+.api-key-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.input-wrapper input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: monospace;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.input-wrapper input:focus {
+  border-color: #2563eb;
+}
+
+.toggle-visibility {
+  padding: 8px 12px;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.toggle-visibility:hover {
+  background: #e5e7eb;
+}
+
+.btn-save {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-save:hover {
+  background: #1d4ed8;
+}
+
+.status-msg {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+  min-height: 20px;
+}
+
+.status-msg.success {
+  color: #16a34a;
+}
+
+.status-msg.error {
+  color: #dc2626;
+}

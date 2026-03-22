@@ -1,0 +1,19 @@
+#ocr-tutor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483646;
+  cursor: crosshair;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+#ocr-tutor-selection {
+  position: fixed;
+  display: none;
+  border: 2px dashed #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  border-radius: 2px;
+  pointer-events: none;
+}
