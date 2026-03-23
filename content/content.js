@@ -211,6 +211,23 @@
         font-size: 13px;
         color: #777;
       }
+      .ocr-card-footer {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .ocr-card-wordlist-btn {
+        background: none;
+        border: 1px solid #2563eb;
+        color: #2563eb;
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .ocr-card-wordlist-btn:hover {
+        background: #eff6ff;
+      }
       .ocr-card-error {
         color: #dc2626;
         font-size: 14px;
@@ -269,8 +286,14 @@
       <span class="ocr-card-pos">${escapeHTML(data.partOfSpeech)}</span>
       <div class="ocr-card-example">${escapeHTML(data.exampleEn)}</div>
       <div class="ocr-card-example-zh">${escapeHTML(data.exampleZh)}</div>
+      <div class="ocr-card-footer">
+        <button class="ocr-card-wordlist-btn">View Word List</button>
+      </div>
     `;
     card.querySelector('.ocr-card-close').addEventListener('click', removeExistingCard);
+    card.querySelector('.ocr-card-wordlist-btn').addEventListener('click', () => {
+      chrome.runtime.sendMessage({ action: 'open-wordlist' });
+    });
     shadow.appendChild(card);
   }
 

@@ -27,6 +27,10 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('[OCR Tutor SW] Received message:', message.action);
 
+  if (message.action === 'open-wordlist') {
+    chrome.tabs.create({ url: chrome.runtime.getURL('pages/wordlist.html') });
+    return false;
+  }
   if (message.action === 'capture-area') {
     handleCaptureArea(message.rect, message.devicePixelRatio, sender.tab.id);
     return true;
