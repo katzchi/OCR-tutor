@@ -175,6 +175,23 @@
         font-weight: 700;
         color: #1a1a1a;
       }
+      .ocr-card-header-actions {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+      }
+      .ocr-card-speak {
+        background: none;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: #999;
+        padding: 0 4px;
+        line-height: 1;
+      }
+      .ocr-card-speak:hover {
+        color: #333;
+      }
       .ocr-card-close {
         background: none;
         border: none;
@@ -280,7 +297,10 @@
     card.innerHTML = `
       <div class="ocr-card-header">
         <span class="ocr-card-word">${escapeHTML(data.word)}</span>
-        <button class="ocr-card-close">&times;</button>
+        <div class="ocr-card-header-actions">
+          <button class="ocr-card-speak" title="Pronounce">🔊</button>
+          <button class="ocr-card-close">&times;</button>
+        </div>
       </div>
       <div class="ocr-card-translation">${escapeHTML(data.translation)}</div>
       <span class="ocr-card-pos">${escapeHTML(data.partOfSpeech)}</span>
@@ -291,6 +311,13 @@
       </div>
     `;
     card.querySelector('.ocr-card-close').addEventListener('click', removeExistingCard);
+    card.querySelector('.ocr-card-speak').addEventListener('click', () => {
+      if (!data.word) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(data.word);
+      utter.lang = 'en-US';
+      window.speechSynthesis.speak(utter);
+    });
     card.querySelector('.ocr-card-wordlist-btn').addEventListener('click', () => {
       chrome.runtime.sendMessage({ action: 'open-wordlist' });
     });

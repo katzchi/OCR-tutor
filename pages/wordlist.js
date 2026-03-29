@@ -55,6 +55,7 @@ function renderWords(words) {
       <div class="card-top">
         <div class="card-word">${escapeHTML(word.word)}</div>
         <div class="card-actions">
+          <button class="btn-speak" title="Pronounce">🔊</button>
           <button class="btn-pin" title="${word.pinned ? 'Unpin' : 'Pin to top'}">${word.pinned ? '📌' : '📍'}</button>
           <button class="btn-delete" title="Delete">🗑️</button>
         </div>
@@ -91,6 +92,19 @@ function renderWords(words) {
         word.pinned = !word.pinned;
         await chrome.storage.local.set({ words });
       }
+    });
+  });
+
+  grid.querySelectorAll('.btn-speak').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const card = e.target.closest('.word-card');
+      const id = card.dataset.id;
+      const word = cachedWords.find(w => w.id === id);
+      if (!word || !word.word) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(word.word);
+      utter.lang = 'en-US';
+      window.speechSynthesis.speak(utter);
     });
   });
 }
