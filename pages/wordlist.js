@@ -74,10 +74,10 @@ function renderWords(words) {
       const card = e.target.closest('.word-card');
       const id = card?.dataset?.id;
       if (!id) return;
-      
-        const result = await chrome.storage.local.get('words');
-        const words = (result.words || []).filter(w => String(w.id) !== id);
-        await chrome.storage.local.set({ words });
+
+      const result = await chrome.storage.local.get('words');
+      const words = (result.words || []).filter(w => String(w.id) !== id);
+      await chrome.storage.local.set({ words });
     });
   });
 

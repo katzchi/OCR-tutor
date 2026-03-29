@@ -341,7 +341,7 @@
       if (!data?.id) return;
 
       const result = await chrome.storage.local.get('words');
-      const updated = (result.words || []).filter(w => w.id !== data.id);
+      const updated = (result.words || []).filter(w => String(w.id) !== String(data.id));
       await chrome.storage.local.set({ words: updated });
 
       removeExistingCard();
