@@ -86,7 +86,7 @@ function renderWords(words) {
       const card = e.target.closest('.word-card');
       const id = card.dataset.id;
       const result = await chrome.storage.local.get('words');
-      const words = result.words || [];
+      const words = (result.words || []).filter(w => String(w.id) !== id);
       const word = words.find(w => w.id === id);
       if (word) {
         word.pinned = !word.pinned;
