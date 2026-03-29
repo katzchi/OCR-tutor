@@ -231,7 +231,20 @@
       .ocr-card-footer {
         margin-top: 10px;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .ocr-card-delete-btn {
+        background: none;
+        border: 1px solid #dc2626;
+        color: #dc2626;
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .ocr-card-delete-btn:hover {
+        background: #fef2f2;
       }
       .ocr-card-wordlist-btn {
         background: none;
@@ -291,6 +304,8 @@
   }
 
   function showTranslationCard(data, rect) {
+    if (!data) return;
+    
     const shadow = createCardHost(rect);
     const card = document.createElement('div');
     card.className = 'ocr-card';
@@ -307,6 +322,7 @@
       <div class="ocr-card-example">${escapeHTML(data.exampleEn)}</div>
       <div class="ocr-card-example-zh">${escapeHTML(data.exampleZh)}</div>
       <div class="ocr-card-footer">
+        <button class="ocr-card-delete-btn" title="Delete">Delete</button>
         <button class="ocr-card-wordlist-btn">View Word List</button>
       </div>
     `;
@@ -320,6 +336,17 @@
     });
     card.querySelector('.ocr-card-wordlist-btn').addEventListener('click', () => {
       chrome.runtime.sendMessage({ action: 'open-wordlist' });
+    });
+    card.querySelector('.ocr-card-delete-btn').addEventListener('click', async () => {
+      if (!data?.id) return;
+
+      if (!confirm('Delete this word from Word List?')) return;
+
+      const result = await chrome.storage.local.get('words');
+      const updated = (result.words || []).filter(w => w.id !== data.id);
+      await chrome.storage.local.set({ words: updated });
+
+      removeExistingCard();
     });
     shadow.appendChild(card);
   }
@@ -345,5 +372,3 @@
     return div.innerHTML;
   }
 })();
-
-Revert broken content script
