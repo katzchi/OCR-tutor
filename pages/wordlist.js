@@ -75,7 +75,7 @@ function renderWords(words) {
       const id = card.dataset.id;
       if (confirm('Are you sure you want to delete this word?')) {
         const result = await chrome.storage.local.get('words');
-        const words = (result.words || []).filter(w => w.id !== id);
+        const words = (result.words || []).filter(w => String(w.id) !== id);
         await chrome.storage.local.set({ words });
       }
     });
@@ -85,9 +85,11 @@ function renderWords(words) {
     btn.addEventListener('click', async (e) => {
       const card = e.target.closest('.word-card');
       const id = card.dataset.id;
+      
       const result = await chrome.storage.local.get('words');
-      const words = (result.words || []).filter(w => String(w.id) !== id);
-      const word = words.find(w => w.id === id);
+      const words = result.words || [];
+      
+      const word = words.find(w => String(w.id) === id);
       if (word) {
         word.pinned = !word.pinned;
         await chrome.storage.local.set({ words });
@@ -99,7 +101,7 @@ function renderWords(words) {
     btn.addEventListener('click', (e) => {
       const card = e.target.closest('.word-card');
       const id = card.dataset.id;
-      const word = cachedWords.find(w => w.id === id);
+      const word = cachedWords.find(w => String(w.id) === id);
       if (!word || !word.word) return;
       window.speechSynthesis.cancel();
       const utter = new SpeechSynthesisUtterance(word.word);
