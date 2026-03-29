@@ -340,8 +340,6 @@
     card.querySelector('.ocr-card-delete-btn').addEventListener('click', async () => {
       if (!data?.id) return;
 
-      if (!confirm('Delete this word from Word List?')) return;
-
       const result = await chrome.storage.local.get('words');
       const updated = (result.words || []).filter(w => w.id !== data.id);
       await chrome.storage.local.set({ words: updated });
