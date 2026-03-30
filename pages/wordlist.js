@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadWords();
 
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area === 'local' && changes.words) {
+    if (area === 'sync' && changes.words) {
       cachedWords = changes.words.newValue || [];
       renderWords(cachedWords);
     }
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadWords() {
-  const result = await chrome.storage.local.get('words');
+  const result = await chrome.storage.sync.get('words');
   cachedWords = result.words || [];
   renderWords(cachedWords);
 }
@@ -75,9 +75,9 @@ function renderWords(words) {
       const id = card?.dataset?.id;
       if (!id) return;
 
-      const result = await chrome.storage.local.get('words');
+      const result = await chrome.storage.sync.get('words');
       const words = (result.words || []).filter(w => String(w.id) !== id);
-      await chrome.storage.local.set({ words });
+      await chrome.storage.sync.set({ words });
     });
   });
 
@@ -86,13 +86,13 @@ function renderWords(words) {
       const card = e.target.closest('.word-card');
       const id = card.dataset.id;
       
-      const result = await chrome.storage.local.get('words');
+      const result = await chrome.storage.sync.get('words');
       const words = result.words || [];
       
       const word = words.find(w => String(w.id) === id);
       if (word) {
         word.pinned = !word.pinned;
-        await chrome.storage.local.set({ words });
+        await chrome.storage.sync.set({ words });
       }
     });
   });

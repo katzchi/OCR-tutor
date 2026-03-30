@@ -340,9 +340,9 @@
     card.querySelector('.ocr-card-delete-btn').addEventListener('click', async () => {
       if (!data?.id) return;
 
-      const result = await chrome.storage.local.get('words');
+      const result = await chrome.storage.sync.get('words');
       const updated = (result.words || []).filter(w => String(w.id) !== String(data.id));
-      await chrome.storage.local.set({ words: updated });
+      await chrome.storage.sync.set({ words: updated });
 
       removeExistingCard();
     });
