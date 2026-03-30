@@ -1,5 +1,17 @@
 importScripts('../utils/storage.js', '../lib/ai-providers.js');
 
+// Migrate existing local words to sync on startup (safe to run multiple times).
+(async () => {
+  try {
+    const res = await StorageUtils.migrateWordsLocalToSync();
+    if (res?.migrated) {
+      console.log(`[OCR Tutor SW] Migrated ${res.count} words from local -> sync.`);
+    }
+  } catch (e) {
+    console.warn('[OCR Tutor SW] Word migration failed:', e);
+  }
+})();
+
 // Register context menu on install
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
